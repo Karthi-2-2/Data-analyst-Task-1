@@ -1,0 +1,9 @@
+import pandas as pd
+df=pd.read_csv("/content/netflix_titles.csv")
+print(df.isnull().sum())
+df=df.drop_duplicates()
+df.columns=df.columns.str.lower().str.replace(" ","_")
+df['date_added']=pd.to_datetime(df['date_added'], errors='coerce')
+df=df.fillna('unknown')
+df.info()
+df.to_csv("cleaned_netflix_dataset.csv", index=False)
